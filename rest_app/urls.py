@@ -11,3 +11,5 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),         # login.html
     path('register/', views.user_register, name='register'), # register.html
 ]
+
+
