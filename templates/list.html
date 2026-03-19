@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Меню{% endblock %}
+{% block content %}
+<style>
+    .sidebar { background: white; border-radius: 15px; padding: 20px; }
+    .category-link { text-decoration: none; color: #333; display: block; padding: 10px; border-radius: 8px; }
+    .category-link:hover, .category-link.active { background: #ffc107; font-weight: bold; }
+</style>
+
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="sidebar shadow-sm">
+            <h5>Категорії</h5>
+            <hr>
+            <a href="#" class="category-link active">Всі страви</a>
+            {% for cat in categories %}
+            <a href="#" class="category-link">{{ cat.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="input-group mb-4 shadow-sm">
+            <input type="text" class="form-control" placeholder="Шукати страву за назвою...">
+            <button class="btn btn-dark">Знайти</button>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for dish in dishes %}
+            <div class="col">
+                <div class="card h-100 dish-card shadow-sm">
+                    <img src="{{ dish.image.url }}" class="card-img-top" style="height: 180px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h6 class="fw-bold">{{ dish.name }}</h6>
+                        <p class="price-tag">{{ dish.price }} грн</p>
+                        <button class="btn btn-outline-dark w-100 rounded-pill">В кошик</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

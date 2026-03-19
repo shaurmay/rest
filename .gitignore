@@ -1,0 +1,30 @@
+# Віртуальне середовище
+.venv/
+venv/
+env/
+bin/
+lib/
+include/
+
+# Python кеш
+__pycache__/
+*.py[cod]
+*$py.class
+
+# База даних (локальна)
+db.sqlite3
+
+# Медіа та статика (завантажені користувачами фото страв)
+media/
+staticfiles/
+
+# Налаштування середовища (паролі, ключі)
+.env
+
+# Системні файли
+.DS_Store
+Thumbs.db
+
+# IDE (VS Code / PyCharm)
+.vscode/
+.idea/

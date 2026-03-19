@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Реєстрація{% endblock %}
+{% block content %}
+<style>
+    .reg-card { max-width: 500px; margin: 40px auto; padding: 30px; border-radius: 15px; border: none; box-shadow: 0 5px 20px rgba(0,0,0,0.1); background: white; }
+    .btn-reg { background: #ffc107; color: #212529; font-weight: bold; width: 100%; padding: 10px; border-radius: 8px; }
+</style>
+
+<div class="reg-card">
+    <h3 class="text-center mb-4">Створити акаунт</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Нікнейм</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Пароль</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Підтвердіть пароль</label>
+            <input type="password" name="password_confirm" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-reg">Зареєструватися</button>
+    </form>
+    <p class="text-center mt-3">Вже є акаунт? <a href="{% url 'login' %}" class="text-warning">Увійти</a></p>
+</div>
+{% endblock %}

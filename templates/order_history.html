@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Мої замовлення{% endblock %}
+
+{% block content %}
+<style>
+    .order-card { border-left: 10px solid #212529; transition: 0.3s; margin-bottom: 20px; }
+    .order-card.status-done { border-left-color: #198754; }
+    .order-card.status-process { border-left-color: #ffc107; }
+    .badge-status { font-size: 0.8rem; padding: 5px 10px; }
+</style>
+
+<div class="container">
+    <h2 class="mb-4">Історія ваших замовлень</h2>
+    
+    {% for order in orders %}
+    <div class="card order-card shadow-sm {% if order.is_paid %}status-done{% else %}status-process{% endif %}">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h5 class="mb-0">Замовлення #{{ order.id }}</h5>
+                    <small class="text-muted">{{ order.created_at|date:"d.m.Y H:i" }}</small>
+                </div>
+                <div>
+                    {% if order.is_paid %}
+                        <span class="badge bg-success badge-status">Виконано / Оплачено</span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark badge-status">В обробці</span>
+                    {% endif %}
+                </div>
+            </div>
+            <p class="mb-1"><strong>Адреса:</strong> {{ order.address }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="h6 mb-0">Сума: <span class="text-success">{{ order.total_price }} грн</span></span>
+                <a href="#" class="btn btn-outline-dark btn-sm">Детальніше</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="text-center py-5">
+        <p class="lead">Ви ще нічого не замовляли. Спробуйте наші фірмові страви!</p>
+        <a href="{% url 'list' %}" class="btn btn-warning">Перейти до меню</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
