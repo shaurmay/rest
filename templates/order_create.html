@@ -1,83 +1,31 @@
 {% extends 'base.html' %}
-
 {% block title %}Оформлення замовлення{% endblock %}
 
 {% block content %}
-<style>
-    .order-form-container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-    .form-section-title { border-left: 5px solid #ffc107; padding-left: 15px; margin-bottom: 25px; font-weight: bold; }
-    .order-summary-box { background: #fff9e6; border: 1px dashed #ffc107; padding: 20px; border-radius: 10px; }
-    .payment-icon { font-size: 1.5rem; margin-right: 10px; }
-</style>
-
-<div class="row">
-    <div class="col-md-8">
-        <div class="order-form-container">
-            <h3 class="form-section-title">Контактні дані та доставка</h3>
-            <form method="post">
-                {% csrf_token %}
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Ім'я отримувача</label>
-                        <input type="text" class="form-control" placeholder="Іван Іванов" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Номер телефону</label>
-                        <input type="tel" class="form-control" placeholder="+380..." required>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Адреса доставки</label>
-                        <input type="text" class="form-control" placeholder="Вулиця, будинок, квартира" required>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Коментар до замовлення</label>
-                        <textarea class="form-control" rows="2" placeholder="Наприклад: код домофону або побажання"></textarea>
-                    </div>
-                </div>
-
-                <h3 class="form-section-title mt-5">Спосіб оплати</h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-check border p-3 rounded mb-2">
-                            <input class="form-check-input" type="radio" name="payment" id="cash" checked>
-                            <label class="form-check-label w-100" for="cash">
-                                💵 Готівка при отриманні
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-check border p-3 rounded mb-2">
-                            <input class="form-check-input" type="radio" name="payment" id="online">
-                            <label class="form-check-label w-100" for="online">
-                                💳 Оплата онлайн (Visa/Mastercard)
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-warning btn-lg w-100 mt-4 fw-bold">ПІДТВЕРДИТИ ЗАМОВЛЕННЯ</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="order-summary-box shadow-sm">
-            <h5>Ваше замовлення</h5>
-            <hr>
-            <div class="d-flex justify-content-between mb-2">
-                <span>Товари:</span>
-                <span>{{ total_items_sum }} грн</span>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <h2 class="mb-4">Оформлення замовлення</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Адреса доставки</label>
+                <input type="text" name="address" class="form-control" required placeholder="вул. Шевченка 12, Івано-Франківськ">
             </div>
-            <div class="d-flex justify-content-between mb-2 text-success">
-                <span>Доставка:</span>
-                <span>Безкоштовно</span>
+            <div class="mb-3">
+                <label class="form-label">Телефон</label>
+                <input type="tel" name="phone" class="form-control" required placeholder="+380 XX XXX XX XX">
             </div>
-            <hr>
-            <div class="d-flex justify-content-between">
-                <span class="h5">Всього:</span>
-                <span class="h5 text-danger fw-bold">{{ total_sum }} грн</span>
+            <div class="mb-3">
+                <label class="form-label">Коментар (необов'язково)</label>
+                <textarea name="comment" class="form-control" rows="3"></textarea>
             </div>
-        </div>
+            
+            <div class="alert alert-info">
+                <strong>До оплати: {{ total_price|default:0 }} грн</strong>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-lg w-100">Підтвердити замовлення</button>
+        </form>
     </div>
 </div>
 {% endblock %}

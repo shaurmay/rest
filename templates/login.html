@@ -1,58 +1,22 @@
 {% extends 'base.html' %}
-{% block title %}Вхід{% endblock %}
+{% block title %}Увійти{% endblock %}
+
 {% block content %}
-<style>
-    .login-card { 
-        max-width: 450px; 
-        margin: 60px auto; 
-        padding: 40px; 
-        border-radius: 20px; 
-        border: none; 
-        box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
-        background: white; 
-    }
-    .btn-login { 
-        background: #212529; 
-        color: #ffc107; 
-        font-weight: bold; 
-        width: 100%; 
-        padding: 12px; 
-        border-radius: 10px; 
-        transition: 0.3s;
-    }
-    .btn-login:hover { 
-        background: #000; 
-        color: #fff; 
-    }
-    .form-control:focus {
-        border-color: #ffc107;
-        box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
-    }
-</style>
-
-<div class="login-card">
-    <div class="text-center mb-4">
-        <h2 class="fw-bold">З поверненням!</h2>
-        <p class="text-muted">Увійдіть, щоб замовити улюблені страви</p>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-body p-5">
+                <h3 class="text-center mb-4">Увійти в акаунт</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary w-100">Увійти</button>
+                </form>
+                <p class="text-center mt-3">
+                    Немає акаунту? <a href="{% url 'rest_app:register' %}">Зареєструватися</a>
+                </p>
+            </div>
+        </div>
     </div>
-
-    <form method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Логін (Username)</label>
-            <input type="text" name="username" class="form-control" placeholder="Введіть ваш нікнейм" required>
-        </div>
-        <div class="mb-4">
-            <label class="form-label fw-semibold">Пароль</label>
-            <input type="password" name="password" class="form-control" placeholder="••••••••" required>
-        </div>
-        
-        <button type="submit" class="btn btn-login mb-3">УВІЙТИ</button>
-        
-        <div class="text-center">
-            <span class="small text-muted">Ще не маєте акаунту?</span>
-            <a href="{% url 'register' %}" class="small text-warning fw-bold text-decoration-none">Створити зараз</a>
-        </div>
-    </form>
 </div>
 {% endblock %}

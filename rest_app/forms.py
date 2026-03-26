@@ -1,5 +1,7 @@
-from django import forms
-from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Dish, Category
+from django.contrib.auth import login, authenticate, logout
+from .forms import RegistrationForm, OrderCreateForm # Твої форми з forms.py
 
 # Форма реєстрації (ТЗ: Система автентифікації)
 class RegistrationForm(forms.ModelForm):

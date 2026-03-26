@@ -1,49 +1,43 @@
 {% extends 'base.html' %}
-{% block title %}Кошик{% endblock %}
+{% block title %}Кошик - Смаколик{% endblock %}
+
 {% block content %}
-<style>
-    .cart-item img { width: 100px; height: 70px; object-fit: cover; border-radius: 10px; }
-    .cart-table { background: white; border-radius: 15px; overflow: hidden; }
-</style>
+<h2 class="mb-4">Ваш кошик</h2>
 
-<div class="container">
-    <h2 class="mb-4">Мій кошик</h2>
-    <div class="table-responsive shadow-sm cart-table">
-        <table class="table align-middle mb-0">
-            <thead class="table-dark">
-                <tr>
-                    <th>Страва</th>
-                    <th>Назва</th>
-                    <th>Ціна</th>
-                    <th>Кількість</th>
-                    <th>Дія</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart %}
-                <tr class="cart-item">
-                    <td><img src="{{ item.product.image.url }}"></td>
-                    <td><strong>{{ item.product.name }}</strong></td>
-                    <td>{{ item.product.price }} грн</td>
-                    <td>
-                        <input type="number" value="{{ item.quantity }}" class="form-control" style="width: 80px;">
-                    </td>
-                    <td><button class="btn btn-sm btn-outline-danger">Видалити</button></td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5" class="text-center py-5">Кошик порожній 🛒</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+{% if cart_items %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Страва</th>
+            <th>Кількість</th>
+            <th>Ціна</th>
+            <th>Сума</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+        <tr>
+            <td>{{ item.dish.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.dish.price }} грн</td>
+            <td><strong>{{ item.total }} грн</strong></td>
+            <td>
+                <a href="{% url 'rest_app:cart_remove' item.dish.id %}" class="btn btn-sm btn-danger">Видалити</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-    {% if cart %}
-    <div class="text-end mt-4">
-        <h4>Разом: <span class="text-success">{{ total_price }} грн</span></h4>
-        <a href="{% url 'order_create' %}" class="btn btn-warning btn-lg mt-2 fw-bold">Оформити замовлення</a>
-    </div>
-    {% endif %}
+<div class="text-end">
+    <h4>Загальна сума: <strong class="price">{{ total_price }} грн</strong></h4>
+    <a href="{% url 'rest_app:order_create' %}" class="btn btn-success btn-lg mt-3">Оформити замовлення →</a>
 </div>
+{% else %}
+<div class="text-center py-5">
+    <h4>Кошик порожній</h4>
+    <a href="{% url 'rest_app:list' %}" class="btn btn-primary mt-3">Перейти до меню</a>
+</div>
+{% endif %}
 {% endblock %}
