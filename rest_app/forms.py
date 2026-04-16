@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Dish, Category
+from .models import Dish, Client
 from django.contrib.auth import login, authenticate, logout
-from .forms import RegistrationForm, OrderCreateForm # Твої форми з forms.py
+from django import forms
 
 # Форма реєстрації (ТЗ: Система автентифікації)
 class RegistrationForm(forms.ModelForm):
@@ -9,7 +9,7 @@ class RegistrationForm(forms.ModelForm):
     password_confirm = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': '••••••••'}))
 
     class Meta:
-        model = User
+        model = Client
         fields = ['username', 'email', 'password']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ваш нікнейм'}),
@@ -34,3 +34,9 @@ class OrderCreateForm(forms.Form):
         ('online', 'Оплата онлайн'),
     ]
     payment_method = forms.ChoiceField(choices=PAYMENT_CHOICES, widget=forms.RadioSelect())
+
+class ClientCreationForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ваш нікнейм'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': '••••••••'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'example@mail.com'}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ваше ім\'я'}))

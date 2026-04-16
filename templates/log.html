@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Увійти{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-body p-5">
+                <h3 class="text-center mb-4">Увійти</h3>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="text" name="username" class="form-control" placeholder="Ім'я користувача" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Пароль" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 py-2">Увійти</button>
+                </form>
+                
+                <div class="text-center mt-3">
+                    Немає акаунту? <a href="{% url 'rest_app:register' %}">Зареєструватися</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

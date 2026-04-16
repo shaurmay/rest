@@ -1,24 +1,46 @@
 {% extends 'base.html' %}
-{% block title %}Історія замовлень{% endblock %}
+{% block title %}Мої замовлення - Смаколик{% endblock %}
 
 {% block content %}
-<h2 class="mb-4">Мої замовлення</h2>
+<div class="container">
+    <h2 class="mb-4">Мої замовлення</h2>
 
-{% if orders %}
-    {% for order in orders %}
-    <div class="card mb-3">
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <h5>Замовлення №{{ order.id }}</h5>
-                <span class="badge bg-success">{{ order.status|default:'В обробці' }}</span>
+    {% if orders %}
+        <div class="row">
+            {% for order in orders %}
+            <div class="col-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Замовлення №{{ order.id }}</h5>
+                        <span class="badge bg-success fs-6">{{ order.status|default:'В обробці' }}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p><strong>Дата:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+                                <p><strong>Адреса доставки:</strong> {{ order.address }}</p>
+                                {% if order.phone %}
+                                    <p><strong>Телефон:</strong> {{ order.phone }}</p>
+                                {% endif %}
+                                {% if order.comment %}
+                                    <p><strong>Коментар:</strong> {{ order.comment }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 text-md-end">
+                                <h4 class="text-primary mb-0">{{ order.total|default:0 }} грн</h4>
+                                <small class="text-muted">Сума замовлення</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p><strong>Дата:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
-            <p><strong>Сума:</strong> {{ order.total }} грн</p>
-            <p><strong>Адреса:</strong> {{ order.address }}</p>
+            {% endfor %}
         </div>
-    </div>
-    {% endfor %}
-{% else %}
-    <p class="text-center py-5">Ви ще не робили замовлень</p>
-{% endif %}
+    {% else %}
+        <div class="text-center py-5">
+            <h4 class="text-muted">Ви ще не зробили жодного замовлення</h4>
+            <a href="{% url 'rest_app:list' %}" class="btn btn-primary mt-3">Перейти до меню</a>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

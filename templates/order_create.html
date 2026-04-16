@@ -2,30 +2,17 @@
 {% block title %}Оформлення замовлення{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-        <h2 class="mb-4">Оформлення замовлення</h2>
-        <form method="post">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label class="form-label">Адреса доставки</label>
-                <input type="text" name="address" class="form-control" required placeholder="вул. Шевченка 12, Івано-Франківськ">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Телефон</label>
-                <input type="tel" name="phone" class="form-control" required placeholder="+380 XX XXX XX XX">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Коментар (необов'язково)</label>
-                <textarea name="comment" class="form-control" rows="3"></textarea>
-            </div>
-            
-            <div class="alert alert-info">
-                <strong>До оплати: {{ total_price|default:0 }} грн</strong>
-            </div>
-            
-            <button type="submit" class="btn btn-primary btn-lg w-100">Підтвердити замовлення</button>
-        </form>
+<h2>Оформлення замовлення</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label>Адреса доставки</label>
+        <input type="text" name="address" class="form-control" required>
     </div>
-</div>
+    <div class="mb-3">
+        <label>Телефон</label>
+        <input type="tel" name="phone" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Підтвердити замовлення</button>
+</form>
 {% endblock %}

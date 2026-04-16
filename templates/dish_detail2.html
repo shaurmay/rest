@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% block title %}{{ dish.name }}{% endblock %}
+{% extends 'base2.html' %}
+{% block title %}{{ dish.name }} 2{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -10,7 +10,7 @@
         <h1>{{ dish.name }}</h1>
         <h2 class="price">{{ dish.price }} грн</h2>
         <p class="lead">{{ dish.description }}</p>
-
+        
         <form method="post" action="{% url 'rest_app:cart_add' dish.id %}">
             {% csrf_token %}
             <div class="input-group mb-3" style="max-width: 200px;">

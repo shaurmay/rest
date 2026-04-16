@@ -1,0 +1,27 @@
+{% extends 'base2.html' %}
+{% block title %}Мої замовлення 2{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Мої замовлення 2</h2>
+
+{% if orders %}
+    {% for order in orders %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <h5>Замовлення №{{ order.id }}</h5>
+                <span class="badge bg-success">{{ order.status|default:'В обробці' }}</span>
+            </div>
+            <p><strong>Дата:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+            <p><strong>Сума:</strong> {{ order.total }} грн</p>
+            <p><strong>Адреса:</strong> {{ order.address }}</p>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="text-center py-5">
+        <h4 class="text-muted">Ви ще не зробили жодного замовлення</h4>
+        <a href="{% url 'rest_app:list' %}" class="btn btn-primary mt-3">Перейти до меню 2</a>
+    </div>
+{% endif %}
+{% endblock %}

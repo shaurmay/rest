@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
-{% block title %}Кошик{% endblock %}
+{% extends 'base2.html' %}
+{% block title %}Кошик 2{% endblock %}
 
 {% block content %}
-<h2>Ваш кошик</h2>
+<h2>Кошик 2</h2>
 
 {% if cart_items %}
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>Страва</th>
@@ -29,10 +29,13 @@
 </table>
 
 <div class="text-end">
-    <h4>Разом: <strong>{{ total_price }} грн</strong></h4>
-    <a href="{% url 'rest_app:order_create' %}" class="btn btn-success btn-lg">Оформити замовлення</a>
+    <h4>Разом: <strong class="price">{{ total_price }} грн</strong></h4>
+    <a href="{% url 'rest_app:order_create' %}" class="btn btn-success btn-lg mt-3">Оформити замовлення</a>
 </div>
 {% else %}
-    <p>Кошик порожній. <a href="{% url 'rest_app:list' %}">Перейти в меню</a></p>
+    <div class="text-center py-5">
+        <h4>Кошик 2 порожній</h4>
+        <a href="{% url 'rest_app:list' %}" class="btn btn-primary mt-3">Перейти до меню 2</a>
+    </div>
 {% endif %}
 {% endblock %}

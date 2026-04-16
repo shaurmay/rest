@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
-{% block title %}Головна - Смаколик{% endblock %}
+{% extends 'base2.html' %}
+{% block title %}Головна 2 - Смаколик{% endblock %}
 
 {% block content %}
 <div class="hero text-center">
     <div class="container">
-        <h1 class="display-3 fw-bold">Ласкаво просимо до Смаколика!</h1>
+        <h1 class="display-3 fw-bold">Ласкаво просимо! (Версія 2)</h1>
         <p class="lead">Найсмачніші страви Івано-Франківська</p>
-        <a href="{% url 'rest_app:list' %}" class="btn btn-warning btn-lg px-5 py-3">Переглянути меню</a>
+        <a href="{% url 'rest_app:list' %}" class="btn btn-warning btn-lg px-5 py-3">Переглянути меню 2</a>
     </div>
 </div>
 
@@ -19,7 +19,7 @@
                 <img src="https://via.placeholder.com/400x250?text={{ dish.name }}" class="card-img-top" alt="">
                 <div class="card-body">
                     <h5>{{ dish.name }}</h5>
-                    <p class="text-muted">{{ dish.description|truncatewords:12 }}</p>
+                    <p class="text-muted">{{ dish.description|truncatewords:15 }}</p>
                     <div class="d-flex justify-content-between">
                         <span class="price">{{ dish.price }} грн</span>
                         <a href="{% url 'rest_app:dish_detail' dish.id %}" class="btn btn-primary">Детальніше</a>
