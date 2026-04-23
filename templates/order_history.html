@@ -5,7 +5,7 @@
 <div class="container">
     <h2 class="mb-4">Мої замовлення</h2>
 
-    {% if orders %}
+    {% if orders and orders.exists %}
         <div class="row">
             {% for order in orders %}
             <div class="col-12 mb-4">
@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8">
-                                <p><strong>Дата:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+                                <p><strong>Дата:</strong> {{ order.created|date:"d.m.Y H:i" }}</p>
                                 <p><strong>Адреса доставки:</strong> {{ order.address }}</p>
                                 {% if order.phone %}
                                     <p><strong>Телефон:</strong> {{ order.phone }}</p>
@@ -27,8 +27,12 @@
                                 {% endif %}
                             </div>
                             <div class="col-md-4 text-md-end">
-                                <h4 class="text-primary mb-0">{{ order.total|default:0 }} грн</h4>
+                                <h4 class="text-primary mb-0">{{ order.total_price|default:0 }} грн</h4>
                                 <small class="text-muted">Сума замовлення</small>
+                                <form method="post" action="{% url 'rest_app:order_delete' order.id %}" onsubmit="return confirm('Видалити це замовлення?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-danger mt-2">Видалити</button>
+                                </form>
                             </div>
                         </div>
                     </div>

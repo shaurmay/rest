@@ -37,8 +37,8 @@
                     <li class="nav-item"><a class="nav-link" href="#">👤 {{ user.username }}</a></li>
                     <li class="nav-item"><a class="nav-link text-danger" href="{% url 'rest_app:logout' %}">Вийти</a></li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'rest_app:login' %}">Увійти</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'rest_app:register' %}">Реєстрація</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Увійти</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'rest_app:client_create' %}">Реєстрація</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -46,6 +46,13 @@
 </nav>
 
 <div class="container mt-4">
+    {% if messages %}
+        <div class="container mt-2">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
     {% block content %}{% endblock %}
 </div>
 

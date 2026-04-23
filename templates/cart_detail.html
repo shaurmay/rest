@@ -20,9 +20,9 @@
             <td>{{ item.dish.name }}</td>
             <td>{{ item.quantity }}</td>
             <td><strong>{{ item.total }} грн</strong></td>
-            <td>
-                <a href="{% url 'rest_app:cart_remove' item.dish.id %}" class="btn btn-sm btn-danger">Видалити</a>
-            </td>
+                <td>
+                    <a href="{% url 'rest_app:cart_remove' item.dish.id %}" class="btn btn-sm btn-danger">Видалити</a>
+                </td>
         </tr>
         {% endfor %}
     </tbody>

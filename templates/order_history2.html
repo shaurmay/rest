@@ -12,9 +12,13 @@
                 <h5>Замовлення №{{ order.id }}</h5>
                 <span class="badge bg-success">{{ order.status|default:'В обробці' }}</span>
             </div>
-            <p><strong>Дата:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
-            <p><strong>Сума:</strong> {{ order.total }} грн</p>
+            <p><strong>Дата:</strong> {{ order.created|date:"d.m.Y H:i" }}</p>
+            <p><strong>Сума:</strong> {{ order.total_price }} грн</p>
             <p><strong>Адреса:</strong> {{ order.address }}</p>
+            <form method="post" action="{% url 'rest_app:order_delete' order.id %}" onsubmit="return confirm('Видалити це замовлення?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger">Видалити</button>
+            </form>
         </div>
     </div>
     {% endfor %}

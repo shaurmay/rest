@@ -127,4 +127,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+# Where to redirect after login/logout. Use the named URL for the app home.
+LOGIN_REDIRECT_URL = 'rest_app:home'
+LOGOUT_REDIRECT_URL = 'rest_app:home'
 
