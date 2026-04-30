@@ -1,10 +1,12 @@
 from django.urls import path
+from django.views.generic import TemplateView
 from . import views
 
 app_name = 'rest_app'
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    # serve a static index.html at the site root so the repository's index can be used
+    path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('menu/', views.dish_list, name='list'),
     path('dish/<int:dish_id>/', views.dish_detail, name='dish_detail'),
     
